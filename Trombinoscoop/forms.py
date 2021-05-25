@@ -3,8 +3,8 @@ from .models import Person, Student, Employee
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label='Courriel')
-    password = forms.CharField(label='Mot de passe', widget=forms.PasswordInput)
+    email = forms.EmailField(label='Courriel', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label='Mot de passe', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     def clean(self):
         cleaned_data = super(LoginForm, self).clean()

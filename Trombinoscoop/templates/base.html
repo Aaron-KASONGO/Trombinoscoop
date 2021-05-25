@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    {% block link %}{% endblock %}
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body id="{% block bodyId %}genericPage{% endblock %}">
     <header>
         {% block headerContent %}{% endblock %}
     </header>
-    <section id="content">
-        {% block content %}{% endblock %}
-    </section>
+    {% block content %}{% endblock %}
 </body>
 </html>
