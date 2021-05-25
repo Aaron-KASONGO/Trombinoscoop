@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body id="{% block bodyId %}genericPage{% endblock %}">
+    <header>
+        {% block headerContent %}{% endblock %}
+    </header>
+    <section id="content">
+        {% block content %}{% endblock %}
+    </section>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Création d'un profil{% endblock %}
+
+{% block bodyId %}userProfilePage{% endblock %}
+
+{% block content %}
+<h1>Création d'un compte</h1>
+<form>
+    {% csrf_token %}
+    <p>
+        <label for="profileType">Vous êtes :</label>
+        <select id="profileType">
+            <option value="student" {% if studentForm.is_bound %} selected="selected" {% endif %}>Étudiant</option>
+            <option value="employee" {% if studentForm.is_bound %} selected="selected" {% endif %}>Employé</option>
+        </select>
+    </p>
+</form>
+<form action="{% url 'user_profile' %}" method="POST" id="studentForm">
+  {% csrf_token %}
+  {{ studentForm.as_p }}
+  <p>
+      <input type="hidden" name="profileType" value="student">
+      <input type="submit" value="Créer un compte">
+  </p>
+</form>
+<form action="{% url 'user_profile' %}" method="POST" id="employeeForm">
+  {% csrf_token %}
+  {{ employeeForm.as_p }}
+  <p>
+      <input type="hidden" name="profileType" value="employee">
+      <input type="submit" value="Créer un compte">
+  </p>
+</form>
+<script type="text/javascript">
+    function displayRightForm() {
+        if ($('#profileType').val() === 'student'){
+            $('#employeeForm').hide();
+            $('#studentForm').show();
+        } else {
+            $('#studentForm').hide();
+            $('#employeeForm').show();
+        }
+    }
+    $(document).ready(displayRightForm);
+    $('#profileType').change(displayRightForm);
+</script>
+{% endblock %}
