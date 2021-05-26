@@ -1,0 +1,31 @@
+body#welcomePage header {
+    background: #3b5998 url("../static/img/tricksIT.png") no-repeat 20px 25px;
+    color: #FFFFFF;
+}
+
+body#welcomePage header p#name {
+    font-size: 22px;
+    margin: 20px 0 0 70px;
+}
+
+body#welcomePage header p#function {
+    margin: 0 0 0 70px;
+}
+
+body#welcomePage header p#profileLinks {
+    position: absolute;
+    right: 40px;
+    top: 25px;
+}
+
+a.buttonLink {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #d9dfea #0e1f5b #0e1f5b #d9dfea;
+    background-color: #3b5998;
+    color: #FFFFFF;
+    padding: 2px 15px 3px 15px;
+    text-align: center;
+    text-decoration: none;
+}
+
