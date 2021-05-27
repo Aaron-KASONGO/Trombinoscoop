@@ -1,12 +1,19 @@
 from django.shortcuts import render, redirect
 from .forms import LoginForm, StudentProfileForm, EmployeeProfileForm
-from .models import Person, Student, Employee
+from .models import Person, Student, Employee, Message
 
 
 def welcome(request):
     logged_user = get_logged_user_from_request(request)
     if logged_user:
-        return render(request, 'welcome.html', {'logged_user': logged_user})
+        if 'newMessage' in request.GET and request.GET['newMessage'] != '':
+            newMessage = Message(author=logged_user, content=request.GET['newMessage'])
+
+            newMessage.save()
+
+        friendMessages = Message.objects.filter(author__friends=logged_user).order_by('-publication_date')
+
+        return render(request, 'welcome.html', {'logged_user': logged_user, 'friendMessages': friendMessages})
     else:
         return redirect('/login')
 
@@ -18,7 +25,7 @@ def login(request):
             user_email = form.cleaned_data['email']
             logged_user = Person.objects.get(email=user_email)
             request.session['logged_user_id'] = logged_user.id
-            return redirect('/welcome')
+            return redirect('/')
         else:
             return render(request, 'login.html', {'form': form})
     else:
