@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import LoginForm, StudentProfileForm, EmployeeProfileForm
+from .forms import LoginForm, StudentProfileForm, EmployeeProfileForm, AddFriendForm
 from .models import Person, Student, Employee, Message
 
 
@@ -67,3 +67,24 @@ def get_logged_user_from_request(request):
             return None
     else:
         return None
+
+def add_friend(request):
+    logged_user = get_logged_user_from_request(request)
+    if logged_user:
+        # Test if the form is shared
+        if len(request.GET) > 0:
+            form = AddFriendForm(request.GET)
+            if form.is_valid():
+                new_friend_email = form.cleaned_data['email']
+                newFriend = Person.objects.get(email=new_friend_email)
+                logged_user.friends.add(newFriend)
+                logged_user.save()
+                return redirect('/')
+            else:
+                return render(request, 'add_friend.html', {'form': form})
+        #Le formulaire n'a pas été envoyé
+        else:
+            form = AddFriendForm()
+            return render(request, 'add_friend.html', {'form': form})
+    else:
+        return redirect('/login')
