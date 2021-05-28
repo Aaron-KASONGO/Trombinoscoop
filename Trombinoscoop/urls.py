@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.welcome, name='welcome'),
     path('register', views.register, name='user_profile'),
     path('addFriend', views.add_friend, name='addFriend'),
+    path('showProfile/<int:userToShow>', views.show_profile, name='showProfile'),
 ]

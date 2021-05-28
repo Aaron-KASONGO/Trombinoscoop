@@ -72,8 +72,8 @@ def add_friend(request):
     logged_user = get_logged_user_from_request(request)
     if logged_user:
         # Test if the form is shared
-        if len(request.GET) > 0:
-            form = AddFriendForm(request.GET)
+        if len(request.POST) > 0:
+            form = AddFriendForm(request.POST)
             if form.is_valid():
                 new_friend_email = form.cleaned_data['email']
                 newFriend = Person.objects.get(email=new_friend_email)
@@ -86,5 +86,26 @@ def add_friend(request):
         else:
             form = AddFriendForm()
             return render(request, 'add_friend.html', {'form': form})
+    else:
+        return redirect('/login')
+
+def show_profile(request, userToShow):
+    logged_user = get_logged_user_from_request(request)
+    if logged_user:
+        #Test if the parameter is passed
+        if 'userToShow' in request.GET and request.GET['userToShow'] != '':
+            user_to_show_id = int(request.GET['userToShow'])
+            results = Person.objects.filter(id=user_to_show_id)
+            if len(results) == 1:
+                if Student.objects.filter(id=user_to_show_id):
+                    user_to_show = Student.objects.get(id=user_to_show_id)
+                else:
+                    user_to_show = Employee.objects.get(id=user_to_show_id)
+                return render(request, 'show_profile.html', {'user_to_show': user_to_show})
+            else:
+                return render(request, 'show_profiel.html', {'user_to_show': logged_user})
+        # Parameter is not find
+        else:
+            return render(request, 'show_profile.html', {'user_to_show': logged_user})
     else:
         return redirect('/login')
