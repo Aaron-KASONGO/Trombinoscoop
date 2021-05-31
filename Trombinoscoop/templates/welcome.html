@@ -27,7 +27,7 @@
 </p>
 <p id="profileLinks">
     <a href="{% url 'showProfile' logged_user.id %}" class="buttonLink">Voir le profile</a>
-    <a href="???" class="buttonLink">Modifier le profile</a>
+    <a href="{% url 'modifyProfile' %}" class="buttonLink">Modifier le profile</a>
 </p>
 {% endblock %}
 
